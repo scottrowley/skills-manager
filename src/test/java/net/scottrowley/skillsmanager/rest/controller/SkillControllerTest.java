@@ -100,9 +100,7 @@ public class SkillControllerTest {
     api.perform(delete(BASE_PATH + prepopulatedSkills.get(1).getId())
         .accept(MediaType.APPLICATION_JSON)
         .contentType(MediaType.APPLICATION_JSON)
-    ).andExpect(status().isOk()
-    ).andExpect(jsonPath("$.name").value("Node.js")
-    ).andExpect(jsonPath("$.id").exists());
+    ).andExpect(status().isNoContent());
 
     assertThat(repo.findById(prepopulatedSkills.get(1).getId())).isEmpty();
   }

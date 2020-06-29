@@ -3,6 +3,7 @@ package net.scottrowley.skillsmanager.rest.controller;
 import static net.scottrowley.skillsmanager.rest.RestSupport.dataMapFromId;
 
 import net.scottrowley.skillsmanager.model.Person;
+import net.scottrowley.skillsmanager.model.Proficiency;
 import net.scottrowley.skillsmanager.repository.PersonRepository;
 import net.scottrowley.skillsmanager.rest.RestSupport;
 import org.springframework.data.domain.Page;
@@ -61,7 +62,7 @@ public class PersonController {
   public ResponseEntity<?> update(@PathVariable final Integer id, @RequestBody final Person body) {
     Optional<Person> result = repository.findById(id);
 
-    if(result.isPresent()) {
+    if (result.isPresent()) {
       Person person = result.get();
       person.setForename(body.getForename());
       person.setSurname(body.getSurname());
@@ -77,9 +78,9 @@ public class PersonController {
   public ResponseEntity<?> delete(@PathVariable final Integer id) {
     Optional<Person> result = repository.findById(id);
 
-    if (result.isPresent()) {
+    if (repository.existsById(id)) {
       repository.deleteById(id);
-      return restSupport.singleEntity(result.get());
+      return restSupport.noContent();
     } else {
       return restSupport.notFound(dataMapFromId(id));
     }

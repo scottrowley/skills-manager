@@ -43,6 +43,33 @@ public class RestSupport {
         .body(errorResponse);
   }
 
+  public ResponseEntity<ErrorResponse> badRequest(
+      final String code,
+      final String message
+  ) {
+    return badRequest(code, message, null);
+  }
+
+  public ResponseEntity<ErrorResponse> badRequest(
+      final String code,
+      final String message,
+      final Map<String, String> data
+  ) {
+    ErrorResponse errorResponse = new ErrorResponse(code, message, data);
+
+    return ResponseEntity
+        .status(HttpStatus.BAD_REQUEST)
+        .contentType(MediaType.APPLICATION_JSON)
+        .body(errorResponse);
+  }
+
+  public ResponseEntity<ErrorResponse> noContent() {
+    return ResponseEntity
+        .status(HttpStatus.NO_CONTENT)
+        .contentType(MediaType.APPLICATION_JSON)
+        .build();
+  }
+
   public static Map<String, String> dataMapFromId(final Integer id) {
     Map<String, String> data = new HashMap<>();
     data.put("id", id.toString());

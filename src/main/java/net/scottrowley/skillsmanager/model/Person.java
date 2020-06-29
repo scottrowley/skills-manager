@@ -1,8 +1,14 @@
 package net.scottrowley.skillsmanager.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity(name = "Person")
 public class Person {
@@ -11,6 +17,10 @@ public class Person {
   private Integer id;
   private String forename;
   private String surname;
+
+  @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  @JsonIgnore
+  private Set<SkillProficiency> skillProficiencies;
 
   public Person() {
   }
@@ -42,5 +52,17 @@ public class Person {
 
   public void setSurname(final String surname) {
     this.surname = surname;
+  }
+
+  public Set<SkillProficiency> getSkillProficiencies() {
+    return skillProficiencies;
+  }
+
+  public void setSkillProficiencies(final Set<SkillProficiency> skillProficiencies) {
+    this.skillProficiencies = skillProficiencies;
+  }
+
+  public void addSkillProficiency(final SkillProficiency proficiency) {
+    this.skillProficiencies.add(proficiency);
   }
 }

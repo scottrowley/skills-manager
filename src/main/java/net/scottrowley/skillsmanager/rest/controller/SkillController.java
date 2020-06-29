@@ -75,11 +75,9 @@ public class SkillController {
 
   @DeleteMapping("/{id}")
   public ResponseEntity<?> delete(@PathVariable final Integer id) {
-    Optional<Skill> result = repository.findById(id);
-
-    if (result.isPresent()) {
+    if (repository.existsById(id)) {
       repository.deleteById(id);
-      return restSupport.singleEntity(result.get());
+      return restSupport.noContent();
     } else {
       return restSupport.notFound(dataMapFromId(id));
     }

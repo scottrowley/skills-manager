@@ -1,6 +1,6 @@
 package net.scottrowley.skillsmanager.model;
 
-public enum SkillLevel {
+public enum Proficiency {
   AWARENESS,
   WORKING,
   PRACTITIONER,

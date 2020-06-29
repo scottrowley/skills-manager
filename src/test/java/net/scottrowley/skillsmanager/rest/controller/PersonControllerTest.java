@@ -104,10 +104,7 @@ public class PersonControllerTest {
     api.perform(delete(BASE_PATH + prepopulatedPersons.get(1).getId())
         .accept(MediaType.APPLICATION_JSON)
         .contentType(MediaType.APPLICATION_JSON)
-    ).andExpect(status().isOk()
-    ).andExpect(jsonPath("$.forename").value("Jane")
-    ).andExpect(jsonPath("$.surname").value("Doe")
-    ).andExpect(jsonPath("$.id").exists());
+    ).andExpect(status().isNoContent());
 
     assertThat(repo.findById(prepopulatedPersons.get(1).getId())).isEmpty();
   }
